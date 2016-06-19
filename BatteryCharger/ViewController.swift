@@ -66,9 +66,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         UIDevice.currentDevice().batteryMonitoringEnabled = true
         self.state = Int((UIDevice.currentDevice().batteryLevel < 0 ? 0 : UIDevice.currentDevice().batteryLevel)*100)
-        setBatteryState(100)
+        updateState()
     }
     
     override func canBecomeFirstResponder() -> Bool {
