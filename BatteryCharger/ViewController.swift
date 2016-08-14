@@ -9,6 +9,7 @@
 import SnapKit
 import FontAwesomeKit
 import AudioToolbox
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class ViewController: UIViewController {
     private weak var chargingView: UIView!
     private weak var hintView: UIView!
     private weak var fullLabel: UILabel!
+    private weak var percentLabel: UILabel!
     
     private var maxChargingWidth: CGFloat = 233
     private var state: Int = 0
@@ -39,7 +41,7 @@ class ViewController: UIViewController {
         
         let chargingView = UIView()
         chargingView.backgroundColor = .greenColor()
-        view.addSubview(chargingView)
+        batteryImageView.addSubview(chargingView)
         chargingView.snp_makeConstraints() {make in
             make.left.equalTo(batteryImageView).offset(25)
             make.width.equalTo(233)
@@ -51,13 +53,22 @@ class ViewController: UIViewController {
         let fullLabel = UILabel()
         fullLabel.font = UIFont.boldSystemFontOfSize(25)
         fullLabel.text = "Charging finished!"
-        view.addSubview(fullLabel)
+        batteryImageView.addSubview(fullLabel)
         fullLabel.snp_makeConstraints() {make in
             make.centerY.equalTo(0)
             make.centerX.equalTo(-7)
         }
         self.fullLabel = fullLabel
         fullLabel.hidden = true
+        
+        let percentLabel = UILabel()
+        percentLabel.font = UIFont.boldSystemFontOfSize(25)
+        batteryImageView.addSubview(percentLabel)
+        percentLabel.snp_makeConstraints() {make in
+            make.centerY.equalTo(0)
+            make.centerX.equalTo(-7)
+        }
+        self.percentLabel = percentLabel
     }
     
     
@@ -66,15 +77,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: #selector(setDataFromSystem),
+            name: UIApplicationWillEnterForegroundNotification,
+            object: nil
+        )
+    }
+    
+    func setDataFromSystem() {
         
+        UIDevice.currentDevice().batteryMonitoringEnabled = true
+        self.state = Int((UIDevice.currentDevice().batteryLevel < 0 ? 0 : UIDevice.currentDevice().batteryLevel)*100)
+        updateState()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIDevice.currentDevice().batteryMonitoringEnabled = true
-        self.state = Int((UIDevice.currentDevice().batteryLevel < 0 ? 0 : UIDevice.currentDevice().batteryLevel)*100)
-        updateState()
+        setDataFromSystem()
     }
     
     override func canBecomeFirstResponder() -> Bool {
@@ -91,22 +112,27 @@ class ViewController: UIViewController {
     
     override func motionCancelled(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
-            cancelStateupdate()
+            cancelStateUpdate(withUpdate: true)
         }
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
-            cancelStateupdate()
+            cancelStateUpdate(withUpdate: false)
         }
     }
     
-    func cancelStateupdate() {
-        updateState()
+    func cancelStateUpdate(withUpdate withUpdate: Bool) {
+        
+        if withUpdate {
+            updateState()
+        }
         shakeTimer?.invalidate()
     }
     
     func updateState() {
+        guard state < 100 else { return }
+        
         let delta = 1
         state += delta
         setBatteryState(state)
@@ -118,6 +144,9 @@ class ViewController: UIViewController {
         if state >= 100 {
             batteryIsFull()
         }
+        FIRAnalytics.logEventWithName("increaseBattery", parameters: [
+            "percentage": state
+            ])
     }
 
     func setBatteryState(percent: Int) {
@@ -133,6 +162,11 @@ class ViewController: UIViewController {
         
         view.backgroundColor = UIColor(white: CGFloat(percent)/100, alpha: 1)
         setColorForPercent(percent)
+        setPercentLabel(percent)
+    }
+    
+    func setPercentLabel(percent: Int) {
+        percentLabel.text = "\(percent)%"
     }
 
     func setColorForPercent(percent: Int) {
@@ -154,7 +188,6 @@ class ViewController: UIViewController {
     }
     
     func batteryIsFull() {
-        fullLabel.hidden = false
         AudioServicesPlaySystemSound (1031)
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
     }
