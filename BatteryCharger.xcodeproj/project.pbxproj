@@ -12,10 +12,12 @@
 		6AF7D0931D15F7D10079D9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AF7D0921D15F7D10079D9DF /* Assets.xcassets */; };
 		6AF7D0961D15F7D10079D9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AF7D0941D15F7D10079D9DF /* LaunchScreen.storyboard */; };
 		6AF7D09E1D15FF540079D9DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AF7D09D1D15FF540079D9DF /* GoogleService-Info.plist */; };
-		7CEF63BFE487BED91860A9CD /* Pods_BatteryCharger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51CAC25523F85CA4159B772 /* Pods_BatteryCharger.framework */; };
+		E082A1B224297203F9A2AEC9 /* Pods_BatteryCharger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4786906374E2218DA8ABD48E /* Pods_BatteryCharger.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03EA0955BEA11CAAB55CC69D /* Pods-BatteryCharger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCharger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCharger/Pods-BatteryCharger.debug.xcconfig"; sourceTree = "<group>"; };
+		4786906374E2218DA8ABD48E /* Pods_BatteryCharger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCharger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF7D0881D15F7D10079D9DF /* BatteryCharger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BatteryCharger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF7D08B1D15F7D10079D9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AF7D08D1D15F7D10079D9DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,9 +25,7 @@
 		6AF7D0951D15F7D10079D9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AF7D0971D15F7D10079D9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AF7D09D1D15FF540079D9DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AD0F1E7B0CB8637E761A2DE4 /* Pods-BatteryCharger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCharger.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCharger/Pods-BatteryCharger.release.xcconfig"; sourceTree = "<group>"; };
-		E1EC72FCF6D5CB1B664D77F6 /* Pods-BatteryCharger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCharger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCharger/Pods-BatteryCharger.debug.xcconfig"; sourceTree = "<group>"; };
-		E51CAC25523F85CA4159B772 /* Pods_BatteryCharger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BatteryCharger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0D61ECA51B8117BBC72E830 /* Pods-BatteryCharger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BatteryCharger.release.xcconfig"; path = "Pods/Target Support Files/Pods-BatteryCharger/Pods-BatteryCharger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,20 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CEF63BFE487BED91860A9CD /* Pods_BatteryCharger.framework in Frameworks */,
+				E082A1B224297203F9A2AEC9 /* Pods_BatteryCharger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01C3366D27BF0B00103FD6F1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				03EA0955BEA11CAAB55CC69D /* Pods-BatteryCharger.debug.xcconfig */,
+				C0D61ECA51B8117BBC72E830 /* Pods-BatteryCharger.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4F6A187C3CC0CF8064E55F5D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4786906374E2218DA8ABD48E /* Pods_BatteryCharger.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6AF7D07F1D15F7D10079D9DF = {
 			isa = PBXGroup;
 			children = (
 				6AF7D08A1D15F7D10079D9DF /* BatteryCharger */,
 				6AF7D0891D15F7D10079D9DF /* Products */,
-				85CBD3DB18FC3961417A5981 /* Pods */,
-				FAAFAC0C9F1EA7B697AEA2BA /* Frameworks */,
+				01C3366D27BF0B00103FD6F1 /* Pods */,
+				4F6A187C3CC0CF8064E55F5D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,23 +88,6 @@
 			path = BatteryCharger;
 			sourceTree = "<group>";
 		};
-		85CBD3DB18FC3961417A5981 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E1EC72FCF6D5CB1B664D77F6 /* Pods-BatteryCharger.debug.xcconfig */,
-				AD0F1E7B0CB8637E761A2DE4 /* Pods-BatteryCharger.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		FAAFAC0C9F1EA7B697AEA2BA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E51CAC25523F85CA4159B772 /* Pods_BatteryCharger.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -95,12 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AF7D09A1D15F7D10079D9DF /* Build configuration list for PBXNativeTarget "BatteryCharger" */;
 			buildPhases = (
-				1827E8F730EB04D1B3E53142 /* Check Pods Manifest.lock */,
+				C9F733C113B6A0385FBAE195 /* [CP] Check Pods Manifest.lock */,
 				6AF7D0841D15F7D10079D9DF /* Sources */,
 				6AF7D0851D15F7D10079D9DF /* Frameworks */,
 				6AF7D0861D15F7D10079D9DF /* Resources */,
-				D8D854C74D319E9A5AA84E93 /* Embed Pods Frameworks */,
-				64530350324666FAC9EF22BA /* Copy Pods Resources */,
+				45451507A501F2FAAEB4F936 /* [CP] Embed Pods Frameworks */,
+				2E545A846DC4824F875D2333 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -124,6 +124,7 @@
 					6AF7D0871D15F7D10079D9DF = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 3T3Q9PBUAH;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -159,29 +160,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1827E8F730EB04D1B3E53142 /* Check Pods Manifest.lock */ = {
+		2E545A846DC4824F875D2333 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		64530350324666FAC9EF22BA /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,19 +175,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCharger/Pods-BatteryCharger-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D8D854C74D319E9A5AA84E93 /* Embed Pods Frameworks */ = {
+		45451507A501F2FAAEB4F936 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BatteryCharger/Pods-BatteryCharger-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9F733C113B6A0385FBAE195 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -315,7 +316,7 @@
 		};
 		6AF7D09B1D15F7D10079D9DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1EC72FCF6D5CB1B664D77F6 /* Pods-BatteryCharger.debug.xcconfig */;
+			baseConfigurationReference = 03EA0955BEA11CAAB55CC69D /* Pods-BatteryCharger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -323,12 +324,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.mangoweb.batteryCharger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		6AF7D09C1D15F7D10079D9DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD0F1E7B0CB8637E761A2DE4 /* Pods-BatteryCharger.release.xcconfig */;
+			baseConfigurationReference = C0D61ECA51B8117BBC72E830 /* Pods-BatteryCharger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -336,6 +338,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.mangoweb.batteryCharger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

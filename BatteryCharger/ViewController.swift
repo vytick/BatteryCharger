@@ -13,36 +13,35 @@ import Firebase
 
 class ViewController: UIViewController {
 
-    private weak var batteryImageView: UIImageView!
-    private weak var chargingView: UIView!
-    private weak var hintView: UIView!
-    private weak var fullLabel: UILabel!
-    private weak var percentLabel: UILabel!
+    fileprivate weak var batteryImageView: UIImageView!
+    fileprivate weak var chargingView: UIView!
+    fileprivate weak var hintView: UIView!
+    fileprivate weak var fullLabel: UILabel!
+    fileprivate weak var percentLabel: UILabel!
     
-    private var maxChargingWidth: CGFloat = 233
-    private var state: Int = 0
-    private var shakeTimer: NSTimer?
-    private var vibrationCountDown: Int = 10
+    fileprivate var maxChargingWidth: CGFloat = 243
+    fileprivate var state: Int = 0
+    fileprivate var shakeTimer: Timer?
+    fileprivate var vibrationCountDown: Int = 1
     
     override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor(white: 0, alpha: 1)
         
-        let plusIcon = FAKFontAwesome.batteryEmptyIconWithSize(250)
-        let batteryImageView = UIImageView(image: plusIcon.imageWithSize(CGSizeMake(330, 330)).imageWithRenderingMode(.AlwaysTemplate))
-        batteryImageView.contentMode = .ScaleAspectFit
-        batteryImageView.tintColor = .greenColor()
+        let batteryImageView = UIImageView(image: UIImage(named: "battery"))
+        batteryImageView.contentMode = .scaleAspectFit
+        batteryImageView.tintColor = .green
         view.addSubview(batteryImageView)
-        batteryImageView.snp_makeConstraints() {make in
+        batteryImageView.snp.makeConstraints() {make in
             make.center.equalTo(view)
             make.width.height.equalTo(300)
         }
         self.batteryImageView = batteryImageView
         
         let chargingView = UIView()
-        chargingView.backgroundColor = .greenColor()
+        chargingView.backgroundColor = .green
         batteryImageView.addSubview(chargingView)
-        chargingView.snp_makeConstraints() {make in
+        chargingView.snp.makeConstraints() {make in
             make.left.equalTo(batteryImageView).offset(25)
             make.width.equalTo(233)
             make.centerY.equalTo(batteryImageView)
@@ -51,20 +50,20 @@ class ViewController: UIViewController {
         self.chargingView = chargingView
         
         let fullLabel = UILabel()
-        fullLabel.font = UIFont.boldSystemFontOfSize(25)
+        fullLabel.font = UIFont.boldSystemFont(ofSize: 25)
         fullLabel.text = "Charging finished!"
         batteryImageView.addSubview(fullLabel)
-        fullLabel.snp_makeConstraints() {make in
+        fullLabel.snp.makeConstraints() {make in
             make.centerY.equalTo(0)
             make.centerX.equalTo(-7)
         }
         self.fullLabel = fullLabel
-        fullLabel.hidden = true
+        fullLabel.isHidden = true
         
         let percentLabel = UILabel()
-        percentLabel.font = UIFont.boldSystemFontOfSize(25)
+        percentLabel.font = UIFont.boldSystemFont(ofSize: 25)
         batteryImageView.addSubview(percentLabel)
-        percentLabel.snp_makeConstraints() {make in
+        percentLabel.snp.makeConstraints() {make in
             make.centerY.equalTo(0)
             make.centerX.equalTo(-7)
         }
@@ -77,52 +76,52 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(setDataFromSystem),
-            name: UIApplicationWillEnterForegroundNotification,
+            name: NSNotification.Name.UIApplicationWillEnterForeground,
             object: nil
         )
     }
     
     func setDataFromSystem() {
         
-        UIDevice.currentDevice().batteryMonitoringEnabled = true
-        self.state = Int((UIDevice.currentDevice().batteryLevel < 0 ? 0 : UIDevice.currentDevice().batteryLevel)*100)
+        UIDevice.current.isBatteryMonitoringEnabled = true
+        self.state = Int((UIDevice.current.batteryLevel < 0 ? 0 : UIDevice.current.batteryLevel)*100)
         updateState()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setDataFromSystem()
     }
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
-    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         
-        if motion == .MotionShake {
+        if motion == .motionShake {
             guard shakeTimer == nil else { return }
-            shakeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(updateState), userInfo: nil, repeats: true)
+            shakeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateState), userInfo: nil, repeats: true)
         }
     }
     
-    override func motionCancelled(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
+    override func motionCancelled(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
             cancelStateUpdate(withUpdate: true)
         }
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
             cancelStateUpdate(withUpdate: false)
         }
     }
     
-    func cancelStateUpdate(withUpdate withUpdate: Bool) {
+    func cancelStateUpdate(withUpdate: Bool) {
         
         if withUpdate {
             updateState()
@@ -139,25 +138,25 @@ class ViewController: UIViewController {
         vibrationCountDown -= delta
         if vibrationCountDown <= 0 {
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            vibrationCountDown = 10
+            vibrationCountDown = 1
         }
         if state >= 100 {
             batteryIsFull()
         }
-        FIRAnalytics.logEventWithName("increaseBattery", parameters: [
-            "percentage": state
+        FIRAnalytics.logEvent(withName: "increaseBattery", parameters: [
+            "percentage": state as NSObject
             ])
     }
 
-    func setBatteryState(percent: Int) {
+    func setBatteryState(_ percent: Int) {
         var w: CGFloat = maxChargingWidth/100 * CGFloat(percent)
         w = w < 1 ? 1 : w
         w = w > maxChargingWidth ? maxChargingWidth : w
-        chargingView.snp_remakeConstraints() {make in
-            make.left.equalTo(batteryImageView).offset(25)
+        chargingView.snp.remakeConstraints() {make in
+            make.left.equalTo(batteryImageView).offset(20)
             make.width.equalTo(w)
             make.centerY.equalTo(batteryImageView)
-            make.height.equalTo(120)
+            make.height.equalTo(125)
         }
         
         view.backgroundColor = UIColor(white: CGFloat(percent)/100, alpha: 1)
@@ -165,25 +164,25 @@ class ViewController: UIViewController {
         setPercentLabel(percent)
     }
     
-    func setPercentLabel(percent: Int) {
+    func setPercentLabel(_ percent: Int) {
         percentLabel.text = "\(percent)%"
     }
 
-    func setColorForPercent(percent: Int) {
+    func setColorForPercent(_ percent: Int) {
         batteryImageView.tintColor = getColorForPercent(percent)
         chargingView.backgroundColor = getColorForPercent(percent)
     }
     
-    func getColorForPercent(percent: Int) -> UIColor {
+    func getColorForPercent(_ percent: Int) -> UIColor {
         
         if percent <= 20 {
-            return .redColor()
+            return .red
         }
         else if percent <= 50 {
-            return .yellowColor()
+            return .yellow
         }
         else {
-            return .greenColor()
+            return .green
         }
     }
     
